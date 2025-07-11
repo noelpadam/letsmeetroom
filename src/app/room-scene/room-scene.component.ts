@@ -47,11 +47,10 @@ export class RoomSceneComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouse = new THREE.Vector2();
   private glbModel!: THREE.Group | null; // To store the loaded GLB model
   private isIntersectingGLB = false; // Flag to track if mouse is over the GLB
-  
+  public dialogId: any = null;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private config: ConfigService) { 
-    this.config.$currentItem.subscribe((value: any)=> {
-        console.log(value);
+    this.config.$currentItem.subscribe((value: any) => {
         if (this.glbModel) {
           this.scene?.remove(this.glbModel);
           // Important: Remove the reference to the object if you no longer need it
@@ -62,7 +61,6 @@ export class RoomSceneComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // for wall comm
     this.config.$currentWall.subscribe((value: any)=> {
-        console.log(value);
 
         let valWall = (value == 'green') ? 0x188038 : (value == 'white') ? 0xffffff : (value == 'pink') ?  0xc90076 : (value == 'brown') ?  0x744700 : 0xa60000;
         const planeGeo = new THREE.PlaneGeometry(200, 200.1);
@@ -276,14 +274,15 @@ export class RoomSceneComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.glbModel) {
       this.glbModel.traverse((child) => {
        //alert("Hi");
-       this.openDialog('0ms', '0ms');
+       if(this.dialogId == null)
+          this.openDialog('0ms', '0ms');
       });
     }
 
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-          this.dialog.open(DialogAnimationsExampleDialog, {
+         this.dialogId = this.dialog.open(DialogAnimationsExampleDialog, {
             width: '250px',
             enterAnimationDuration,
             exitAnimationDuration,
@@ -294,12 +293,15 @@ export class RoomSceneComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('Mouse pointer left the GLB model.');
     // Trigger an optional event when the mouse leaves
     if (this.glbModel) {
-      this.glbModel.traverse((child) => {
-        if ((child as THREE.Mesh).isMesh && (child as THREE.Mesh).material instanceof THREE.MeshBasicMaterial) {
-          // Revert to the original material (you might need to store this)
-          (child as THREE.Mesh).material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x8d8d8d }); // Example: Revert to a default material
-        }
-      });
+      // this.glbModel.traverse((child) => {
+      //   if ((child as THREE.Mesh).isMesh && (child as THREE.Mesh).material instanceof THREE.MeshBasicMaterial) {
+      //     // Revert to the original material (you might need to store this)
+      //     (child as THREE.Mesh).material = new THREE.MeshPhongMaterial({ color: 0xffffff, emissive: 0x8d8d8d }); // Example: Revert to a default material
+      //   }
+      // });
+      //alert("Hi");
+       this.dialog.closeAll();
+       this.dialogId = null;
     }
   }
 
