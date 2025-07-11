@@ -1,0 +1,11 @@
+/* room-scene.component.css */
+#info {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+body { margin: 0; }
+canvas { display: block; }

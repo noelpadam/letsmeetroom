@@ -1,0 +1,41 @@
+<section>
+<h2>Add Device</h2>
+<mat-form-field>
+  <mat-label>Device Name</mat-label>
+  <input matInput required>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Select</mat-label>
+  <mat-select required>
+    <mat-option value="one">Television</mat-option>
+    <mat-option value="two">MFP</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Description</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+<button mat-button>Add</button>
+</section>
+<hr>
+<section>
+<h2>List of Devices</h2>
+<table>
+    <thead>
+        <tr>
+            <td>No.</td>
+            <td>Device Name</td>
+            <td>Device</td>
+        </tr>
+    </thead>
+    <tbody>
+    @for (item of items; track $index) {
+        <tr> 
+            <td>{{ item.id }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.name }}</td>
+        </tr>
+    }
+    </tbody>
+</table>
+</section>

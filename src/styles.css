@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.call-connect {
+    margin-bottom: 10px;
+    min-width: 300px !important;
+}
+
+.call-connect .mdc-button__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.call-connect .mdc-button__label .svg-icon {
+    transform: scale(0.6);
+}
+  
